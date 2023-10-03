@@ -1,4 +1,6 @@
-Hello, I would like you to create an application. Today I tried to write codes about it but I’m so shitty in this area. The application Idea I will upload one excel documents and I will use the data and links for cheking amazon prices.  In the application will have four buttons in the user interface. they could be side by side, labeled "Upload", "Compare", "View Images" and "Download" in that order. You can use a simple front-end template for the application. No front end needed for it. 
+# **EN**
+
+Hello, I would like you to create an application. Today I tried to write codes about it but I’m so shitty in this area. The application Idea I will upload one excel documents and I will use the data and links for cheking amazon prices.  In the application will have four buttons in the user interface. they could be side by side, labeled "Upload", "Run", "Compare" and "Export" in that order. You can use a simple front-end template for the application. Also there is No front end needed for it. 
 
 Also if you could look at the Example(.xlsx) there will be shitty datas. I just need the cells whic is starting from  **B19 as a header and B20 to All Valuable B cells**  & **L20 to all valuable L cells** Where is the links are wrotten for web scraping. 
 
@@ -7,7 +9,7 @@ Step 1:
 - Create an "Upload" button to upload an Excel file.
     - If the file is successfully uploaded, display a success message.
     - If it fails to upload, print an error message.
-    - 
+    
 
 Step 2:
 
