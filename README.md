@@ -26,4 +26,4 @@ Finally,
 - Create an export button that saves the newly created dataframe as an Excel file to a local location chosen by the user.
 
 
-![Buttons Picture]([https://github.com/anilembel/Amazon_Check_Parse/blob/main/buttons.png]))
+![Buttons Picture](https://github.com/anilembel/Amazon_Check_Parse/blob/main/buttons.png)
