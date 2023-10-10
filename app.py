@@ -1,35 +1,47 @@
 import os
 from flask import Flask, request, render_template, jsonify, send_file
 import pandas as pd
-from bs4 import BeautifulSoup
 import requests
-import openpyxl
+from bs4 import BeautifulSoup
 from openpyxl.drawing.image import Image
 
-app = Flask(__name)
+app = Flask(__name__, template_folder="templates", static_folder="templates/assets")
 
 # Variables to hold uploaded data
 data = pd.DataFrame(columns=["Product_Name", "Price_1", "Price_2"])
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('app.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
+        data = {}
         if 'file' not in request.files:
             return jsonify({"message": "No file part"})
         file = request.files['file']
-        if file.filename == '':
-            return jsonify({"message": "No selected file"})
         if file:
             df = pd.read_excel(file)
-            data["Product_Name"] = df.loc[19:, "B"].dropna()
-            data["Price_1"] = df.loc[19:, "D"].dropna()
-            data["Price_2"] = data["Price_2"].apply(scrape_price)
+            df = df.drop(index=range(19))
+            df = df.rename(columns={'香港红珊瑚国际货运代理有限公司' : "Article No.", 
+                                    'Unnamed: 1' : "Description of goods", 
+                                    'Unnamed: 2' : "HS Code",
+                                    'Unnamed: 3' : "Unit Price",
+                                    'Unnamed: 4' : "Description of goods",
+                                    'Unnamed: 5' : "Material",
+                                    'Unnamed: 6' : "Mark",
+                                    'Unnamed: 7' : "Quantity",
+                                    'Unnamed: 8' : "Total Value",
+                                    'Unnamed: 9' : "Total Net Weight kg",
+                                    'Unnamed: 10' : "Total Gross Weight kg",
+                                    'Unnamed: 11' : "Links"})
+            data["Product_Name"] = df["Description of goods"].dropna()
+            data["Price"] = df["Unit Price"].dropna()
+            data["Link_price"] = df["Links"].dropna()
             return jsonify({"message": "File uploaded successfully"})
     except Exception as e:
+        app.logger.info(e.args)
         return jsonify({"message": f"Error uploading file: {str(e)}"})
 
 @app.route('/view_images', methods=['GET'])
